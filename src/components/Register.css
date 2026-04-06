@@ -50,10 +50,10 @@
     background-color: #45a049;
 }
 
-.login-page-link {
+/* .login-page-link {
     text-align: center;
     margin-top: 10px;
-}
+} */
 
 .error {
     color: red;
@@ -62,10 +62,10 @@
     display: block;
 }
 
-/* Responsive
+/* Responsive */
 @media (max-width: 400px) {
-    .login-box {
+    .register-box {
         width: 90%;
         padding: 20px;
     }
-} */
+}

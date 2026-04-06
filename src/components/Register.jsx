@@ -1,14 +1,25 @@
 import React from "react";
-import { Link } from "react-router-dom";
+// import { Link, useNavigate } from "react-router-dom";
 import "./Register.css";
 
-function Register() {
+function Register({switchToLogin}) {
+    // const navigate = useNavigate();
+
+    // const handleSubmit = (e) => {
+    //     e.preventDefault(); // stop reload
+
+    //     alert("Registration Successful...!");
+    //     setTimeout(() => {
+    //         navigate("/"); // switch view
+    //     }, 500);
+        
+    // };
     return (
         <div className="register-container">
             <div className="register-box">
                 <h2>Registration</h2>
 
-                <form>
+                <form >
                     <div className="input-fields">
                         <label>Full Name</label>
                         <input type="text" placeholder="Enter your full name" required></input>
@@ -34,9 +45,13 @@ function Register() {
                         Register
                     </button>
 
-                    <p className="login-page-link">
+                    <h5>Already have an account?<p onClick={switchToLogin} style={{cursor: "pointer"}}>
+                        Back to Login
+                    </p></h5>
+
+                    {/* <p className="login-page-link">
                         Already have an account?{" "}<Link to="/">Login</Link>
-                    </p>
+                    </p> */}
                 </form>
             </div>
         </div>
