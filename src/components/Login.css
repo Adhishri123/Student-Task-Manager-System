@@ -55,6 +55,13 @@
     margin-top: 10px;
 } */
 
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+    display: block;
+}
+
 /* Responsive */
 @media (max-width: 400px) {
     .login-box {

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 // import { Link, useNavigate } from "react-router-dom";
 import "./Register.css";
 
 function Register({switchToLogin}) {
+    // react routing :-
     // const navigate = useNavigate();
 
     // const handleSubmit = (e) => {
@@ -14,31 +15,83 @@ function Register({switchToLogin}) {
     //     }, 500);
         
     // };
+
+    // for validations :-
+    const [form, setForm] = useState({
+        fullName : "",
+        emailId : "",
+        password : "",
+        confirmPassword : "",
+    });
+    const [errors,setErrors] = useState({});
+    //  Handle input change
+    const handleChange = (e) => {
+        setForm({ ...form, [e.target.name] : e.target.value });
+    };
+    //  Validation function
+    const validate = () => {
+        let newErrors = {};
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        //  Full Name
+        if(!form.fullName.trim()) {
+            newErrors.fullName = "Full name is required";
+        }
+        // Email Id
+        if(!form.emailId) {
+            newErrors.emailId = "Email is required";
+        }else if(!emailRegex.test(form.emailId)) {
+            newErrors.emailId = "Invalid email format";
+        }
+        // Password
+        if(!form.password) {
+            newErrors.password = "Password is required";
+        }else if(form.password.length<6) {
+            newErrors.password = "Password must be at least 6 characters";
+        }
+        // Confirm Password
+        if(!form.confirmPassword) {
+            newErrors.confirmPassword = "Confirm your password";
+        }else if(form.password !== form.confirmPassword) {
+            newErrors.confirmPassword = "Passwords do not match";
+        }
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
+    // Submit
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if(validate()) {
+            console.log("Form Submitted", form);
+            switchToLogin();//navigate back
+        }
+    };
+
     return (
         <div className="register-container">
             <div className="register-box">
                 <h2>Registration</h2>
 
-                <form >
+                <form onSubmit={handleSubmit}>
                     <div className="input-fields">
-                        <label>Full Name</label>
-                        <input type="text" placeholder="Enter your full name" required></input>
-                        <small className="error">{/* Error placeholder */}</small>
+                        {/* <label>Full Name</label> */}
+                        <input type="text" name="fullName" onChange={handleChange} placeholder="Enter your full name" required></input>
+                        <small className="error">{errors.fullName}</small>
                     </div>
                     <div className="input-fields">
-                        <label>Email</label>
-                        <input type="email" placeholder="Enter your email ID" required></input>
-                        <small className="error"></small>
+                        {/* <label>Email</label> */}
+                        <input type="email" name="emailId" onChange={handleChange} placeholder="Enter your email ID" required></input>
+                        <small className="error">{errors.emailId}</small>
                     </div>
                     <div className="input-fields">
-                        <label>Password</label>
-                        <input type="password" placeholder="Enter password" required></input>
-                        <small className="error"></small>
+                        {/* <label>Password</label> */}
+                        <input type="password" name="password" onChange={handleChange} placeholder="Enter password" required></input>
+                        <small className="error">{errors.password}</small>
                     </div>
                     <div className="input-fields">
-                        <label>Confirm Password</label>
-                        <input type="password" placeholder="Confirm password" required></input>
-                        <small className="error"></small>
+                        {/* <label>Confirm Password</label> */}
+                        <input type="password" name="confirmPassword" onChange={handleChange} placeholder="Confirm password" required></input>
+                        <small className="error">{errors.confirmPassword}</small>
                     </div>
 
                     <button type="submit" className="register-btn">
