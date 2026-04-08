@@ -32,6 +32,7 @@ function Register({switchToLogin}) {
     const validate = () => {
         let newErrors = {};
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
         //  Full Name
         if(!form.fullName.trim()) {
             newErrors.fullName = "Full name is required";
@@ -40,13 +41,13 @@ function Register({switchToLogin}) {
         if(!form.emailId) {
             newErrors.emailId = "Email is required";
         }else if(!emailRegex.test(form.emailId)) {
-            newErrors.emailId = "Invalid email format";
+            newErrors.emailId = "Invalid email format ... Correct format : john1@gmail.com";
         }
         // Password
         if(!form.password) {
             newErrors.password = "Password is required";
-        }else if(form.password.length<6) {
-            newErrors.password = "Password must be at least 6 characters";
+        }else if(!passwordRegex.test(form.password)) {
+            newErrors.password = "Password must be 6+ chars, include at least 1 uppercase, at least 1 lowercase, at least 1 number & 1 special char";
         }
         // Confirm Password
         if(!form.confirmPassword) {
